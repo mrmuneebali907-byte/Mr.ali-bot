@@ -39,6 +39,3 @@ ctx.stroke();
 const buffer = canvas.toBuffer("image/jpeg");
 fs.writeFileSync(filePath, buffer);
 
-console.log(`✅ VIP image generated & saved: ${filePath}`);
-npm install canvas
-node generate_vip_image.js
