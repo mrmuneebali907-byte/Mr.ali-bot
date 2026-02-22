@@ -1,4 +1,5 @@
-# Mr.Muneeb ali bot
+# Mr.MuneebAli Bot
+
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=35&duration=3000&pause=1000&color=FFD700&center=true&vCenter=true&width=900&lines=𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊-+VIP+WhatsApp+Bot;Mastermind+Developer;Advanced+Baileys+Bot+System;Powerful+%26+Smart+Automation" />
 </p>
