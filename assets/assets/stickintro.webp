@@ -1,1 +1,61 @@
+// ===============================
+// MrMuneebAli VIP Sticker Generator
+// Generates directly: assets/stickintro.webp
+// Run: npm install canvas sharp
+// Then: node vip.js
+// ===============================
 
+const fs = require("fs");
+const { createCanvas } = require("canvas");
+const sharp = require("sharp");
+
+const outputPath = "./assets/stickintro.webp";
+
+// Ensure assets folder exists
+if (!fs.existsSync("./assets")) {
+  fs.mkdirSync("./assets");
+}
+
+const width = 512;
+const height = 512;
+
+const canvas = createCanvas(width, height);
+const ctx = canvas.getContext("2d");
+
+// 🔥 VIP Gradient Background
+const gradient = ctx.createLinearGradient(0, 0, width, height);
+gradient.addColorStop(0, "#000000"); 
+gradient.addColorStop(1, "#FFD700"); 
+ctx.fillStyle = gradient;
+ctx.fillRect(0, 0, width, height);
+
+// 👑 Crown Emoji
+ctx.font = "60px Sans-serif";
+ctx.textAlign = "center";
+ctx.fillText("👑", width / 2, 110);
+
+// 💎 Main Name
+ctx.font = "bold 42px Sans-serif";
+ctx.fillStyle = "#FFFFFF";
+ctx.fillText("𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊", width / 2, 260);
+
+// ⚡ Subtitle
+ctx.font = "bold 26px Sans-serif";
+ctx.fillStyle = "#FFD700";
+ctx.fillText("VIP WhatsApp Bot", width / 2, 310);
+
+// 🟡 Decorative Circle (DP Style)
+ctx.strokeStyle = "#FFFFFF";
+ctx.lineWidth = 6;
+ctx.beginPath();
+ctx.arc(width / 2, 190, 70, 0, Math.PI * 2);
+ctx.stroke();
+
+// Convert to WebP
+sharp(canvas.toBuffer("image/png"))
+  .webp({ quality: 100 })
+  .toFile(outputPath)
+  .then(() => {
+    console.log("✅ VIP Sticker Created: assets/stickintro.webp");
+  })
+  .catch(err => console.error(err));
