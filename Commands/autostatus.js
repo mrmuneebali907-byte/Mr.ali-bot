@@ -7,8 +7,9 @@ const channelInfo = {
         forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363161513685998@newsletter',
-            newsletterName: 'Mr Muneeb Ali Bot',
+            // ✅ Stylish bot name aur channel link replace
+            newsletterJid: '0029VbCgDMZ6mYPNVd1AYp3K@newsletter',
+            newsletterName: '𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot',
             serverMessageId: -1
         }
     }
