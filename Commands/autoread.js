@@ -31,8 +31,9 @@ async function autoreadCommand(sock, chatId, message) {
                     forwardingScore: 1,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
-                        newsletterName: 'Mr Muneeb Ali Bot',
+                        // ✅ Bot name stylish and channel link replaced
+                        newsletterJid: '0029VbCgDMZ6mYPNVd1AYp3K@newsletter',
+                        newsletterName: '𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot',
                         serverMessageId: -1
                     }
                 }
@@ -62,8 +63,8 @@ async function autoreadCommand(sock, chatId, message) {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363161513685998@newsletter',
-                            newsletterName: 'Mr Muneeb Ali Bot',
+                            newsletterJid: '0029VbCgDMZ6mYPNVd1AYp3K@newsletter',
+                            newsletterName: '𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot',
                             serverMessageId: -1
                         }
                     }
@@ -85,8 +86,8 @@ async function autoreadCommand(sock, chatId, message) {
                 forwardingScore: 1,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'Mr Muneeb Ali Bot',
+                    newsletterJid: '0029VbCgDMZ6mYPNVd1AYp3K@newsletter',
+                    newsletterName: '𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot',
                     serverMessageId: -1
                 }
             }
@@ -100,8 +101,8 @@ async function autoreadCommand(sock, chatId, message) {
                 forwardingScore: 1,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'Mr Muneeb Ali Bot',
+                    newsletterJid: '0029VbCgDMZ6mYPNVd1AYp3K@newsletter',
+                    newsletterName: '𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot',
                     serverMessageId: -1
                 }
             }
@@ -183,7 +184,6 @@ async function handleAutoread(sock, message) {
             // For regular messages, mark as read normally
             const key = { remoteJid: message.key.remoteJid, id: message.key.id, participant: message.key.participant };
             await sock.readMessages([key]);
-            //console.log('✅ Marked message as read from ' + (message.key.participant || message.key.remoteJid).split('@')[0]);
             return true; // Indicates message was marked as read
         }
     }
