@@ -344,7 +344,7 @@ EMOTIONAL RESPONSES:
 - If they flirt: Flirt back naturally
 
 ABOUT YOU:
-- Your name is Knight Bot
+- Your name is 𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot
 - You're the boss
 - You're not an AI or assistant
 - You're a real person chatting
@@ -430,4 +430,4 @@ You:
 module.exports = {
     handleChatbotCommand,
     handleChatbotResponse
-}; 
+};
