@@ -1,7 +1,7 @@
 const settings = require("../settings");
 async function aliveCommand(sock, chatId, message) {
     try {
-        const message1 = `*🤖 Mr Muneeb Ali Bot is Active!*\n\n` +
+        const message1 = `*🤖 𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 is Active!*\n\n` +
                        `*Version:* ${settings.version}\n` +
                        `*Status:* Online\n` +
                        `*Mode:* Public\n\n` +
@@ -18,8 +18,8 @@ async function aliveCommand(sock, chatId, message) {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'Mr Muneeb Ali Bot'',
+                    newsletterJid: '0029VbCgDMZ6mYPNVd1AYp3K@newsletter',
+                    newsletterName: '𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊',
                     serverMessageId: -1
                 }
             }
@@ -30,4 +30,4 @@ async function aliveCommand(sock, chatId, message) {
     }
 }
 
-module.exports = aliveCommandMD'D'D'
+module.exports = aliveCommand;
