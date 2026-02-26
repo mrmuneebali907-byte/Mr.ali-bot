@@ -1,60 +1,95 @@
 # 🤖 Mr.MuneebAli Bot 🌹
 
-This is a WhatsApp bot built using the Baileys library for group management, including features like tagging all members, muting/unmuting, and many more. It's designed to help admins efficiently manage WhatsApp groups.
+A powerful Multi-Device WhatsApp Bot built using Baileys.  
+Specially designed for Group Management & Automation.
 
-<div align="center"> 
-  <a href="https://git.io/typing-svg"> 
-    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=Mr.MuneebAli+Bot;Multi+Device+Whatsapp+Bot;Coded+By+MuneebAli" />
-  </a> 
-</div> 
+---
 
-<div align="center"> 
-  <a href="https://youtube.com/@YOUR_CHANNEL_LINK"> 
-    <img src="https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/assets/bot_image.jpg" height="300"> 
-  </a> 
-</div>
+## 🚀 Live Buttons
 
 <div align="center">
-  <img src="https://img.shields.io/github/followers/YOUR_GITHUB_USERNAME?style=for-the-badge&label=Followers"/>
-  <img src="https://img.shields.io/github/stars/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME?style=for-the-badge&label=Stars"/>
-  <img src="https://img.shields.io/github/forks/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME?style=for-the-badge&label=Forks"/>
-  <img src="https://img.shields.io/github/watchers/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME?style=for-the-badge&label=Watchers"/>
+
+<a href="https://github.com/${{ github.repository }}/fork">
+  <img src="https://img.shields.io/badge/Fork-Repository-blue?style=for-the-badge&logo=github">
+</a>
+
+<a href="https://chat.whatsapp.com/KVn6Rwp8Vps8o4HuZonof5">
+  <img src="https://img.shields.io/badge/Join-WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white">
+</a>
+
+<a href="https://www.facebook.com/share/18L199XwG1/">
+  <img src="https://img.shields.io/badge/Facebook-Profile-1877F2?style=for-the-badge&logo=facebook&logoColor=white">
+</a>
+
+<a href="https://tiktok.com/@its.abbasi.brand1">
+  <img src="https://img.shields.io/badge/TikTok-Follow-black?style=for-the-badge&logo=tiktok">
+</a>
+
 </div>
 
 ---
 
-## 🚀 Steps to Deploy Bot
+## 🖼 Bot Image
 
-### Step 1: Fork the Repository
+⚠️ Image show karne ke liye:
 
-<div align="center">
-  <a href="https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/fork">
-    <img src="https://img.shields.io/badge/Fork-Repository-blue?style=for-the-badge&logo=github"/>
-  </a>
-</div>
+1. Apne repo me `assets` naam ka folder banao  
+2. Usme apni image upload karo  
+3. Image ka naam rakho: `bot.jpg`
 
----
+Phir ye line kaam karegi:
 
-### Step 2: Get Pair Code
-
-Deploy the bot and connect it to your WhatsApp account using Pair Code.
-
-<div align="center">
-  <a href="https://YOUR-PAIRCODE-LINK.onrender.com" target="_blank">
-    <img src="https://img.shields.io/badge/GET%20PAIR%20CODE-Easy%20Method-ff4d4d?style=for-the-badge"/>
-  </a>
-</div>
-
-After getting `creds.json` file, upload it to session folder.
+```
+![Bot Image](assets/bot.jpg)
+```
 
 ---
 
-### Step 3: Deploy Now
+## 🚀 Deploy Steps
 
-Run the following commands:
+### 1️⃣ Fork This Repository
+Click the Fork button above.
 
-```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+---
+
+### 2️⃣ Install Requirements
+
+```
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
 npm install
+```
+
+---
+
+### 3️⃣ Start Bot
+
+```
 node index.js
+```
+
+QR code screen par show hoga.  
+Usko WhatsApp Linked Devices se scan karein.
+
+---
+
+## ⚙️ Features
+
+- ✅ Tag All Members
+- ✅ Anti-Link System
+- ✅ Group Management
+- ✅ Sticker Maker
+- ✅ Text To Speech
+- ✅ Games
+- ✅ Admin Control
+
+---
+
+## 💬 About
+
+Mr.MuneebAli Bot is built for powerful WhatsApp group automation.  
+Supports Multi-Device login & QR authentication system.
+
+---
+
+### ⭐ Don't Forget To Star The Repo
