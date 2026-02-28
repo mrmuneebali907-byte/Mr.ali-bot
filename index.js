@@ -1,5 +1,5 @@
 /**
- * 𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot - Premium Edition
+ * 𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot - Ultra Premium Final
  */
 
 require('./settings')
@@ -11,6 +11,7 @@ const express = require("express")
 const QRCode = require("qrcode")
 const pino = require("pino")
 const NodeCache = require("node-cache")
+
 const {
     default: makeWASocket,
     useMultiFileAuthState,
@@ -20,37 +21,31 @@ const {
     delay
 } = require("@whiskeysockets/baileys")
 
-const { handleMessages, handleGroupParticipantUpdate, handleStatus } = require("./main")
-const store = require("./lib/lightweight_store")
-
-// ================= BASIC SETTINGS =================
+// ================= BASIC =================
 
 global.botname = "𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot"
-global.themeemoji = "•"
-
-store.readFromFile()
-setInterval(() => store.writeToFile(), 10000)
-
-// ================= BANNER =================
 
 console.clear()
 console.log(
     chalk.green(
-        figlet.textSync("Mr.MuneebAli Bot", {
-            font: "Standard"
-        })
+        figlet.textSync("Mr.MuneebAli Bot", { font: "Standard" })
     )
 )
-console.log(chalk.cyan("🚀 Starting Premium WhatsApp Bot...\n"))
 
-// ================= EXPRESS WEB SERVER =================
+console.log(chalk.cyan("🚀 Starting WhatsApp Bot...\n"))
+
+// ================= EXPRESS SERVER =================
 
 const app = express()
-let latestQR = null
+app.use(express.json())
 
+let latestQR = null
+let activeSock = null
+
+// QR PAGE
 app.get("/", async (req, res) => {
     if (!latestQR) {
-        return res.send("<h2>QR not generated yet. Please wait...</h2>")
+        return res.send("<h2>QR Not Generated Yet...</h2>")
     }
     const qrImage = await QRCode.toDataURL(latestQR)
     res.send(`
@@ -58,11 +53,39 @@ app.get("/", async (req, res) => {
         <div style="text-align:center;">
             <img src="${qrImage}" />
         </div>
+        <hr/>
+        <h3 style="text-align:center;">Pair Code Method</h3>
+        <form method="POST" action="/pair">
+            <input name="number" placeholder="923XXXXXXXXX" required/>
+            <button type="submit">Generate Code</button>
+        </form>
     `)
 })
 
+// PAIR ROUTE
+app.post("/pair", async (req, res) => {
+    try {
+        const number = req.body.number
+
+        if (!number) {
+            return res.send("Enter Number with Country Code")
+        }
+
+        if (!activeSock) {
+            return res.send("Bot Not Ready Yet")
+        }
+
+        const code = await activeSock.requestPairingCode(number)
+        res.send(`<h2>Your Pair Code:</h2><h1>${code}</h1>`)
+
+    } catch (err) {
+        console.log(err)
+        res.send("Pairing Failed")
+    }
+})
+
 app.listen(3000, () => {
-    console.log(chalk.yellow("🌐 Web QR Server running on http://localhost:3000"))
+    console.log(chalk.yellow("🌐 Server Running on http://localhost:3000\n"))
 })
 
 // ================= START BOT =================
@@ -84,36 +107,19 @@ async function startBot() {
             msgRetryCounterCache: new NodeCache()
         })
 
-        store.bind(sock.ev)
+        activeSock = sock
         sock.ev.on("creds.update", saveCreds)
-
-        // ================= CONNECTION =================
 
         sock.ev.on("connection.update", async (update) => {
             const { connection, lastDisconnect, qr } = update
 
             if (qr) {
                 latestQR = qr
-                console.log(chalk.yellow("📱 QR Generated! Scan from WhatsApp"))
-            }
-
-            if (connection === "connecting") {
-                console.log(chalk.blue("🔄 Connecting..."))
+                console.log(chalk.yellow("📱 QR Generated"))
             }
 
             if (connection === "open") {
                 console.log(chalk.green("✅ Bot Connected Successfully!\n"))
-
-                console.log(chalk.magenta(`${global.themeemoji} OWNER: Mr.MuneebAli`))
-                console.log(chalk.magenta(`${global.themeemoji} FACEBOOK: facebook.com/share/1T2ynxXoVd`))
-                console.log(chalk.magenta(`${global.themeemoji} WHATSAPP: chat.whatsapp.com/KVn6Rwp8Vps8o4HuZonof5`))
-                console.log(chalk.magenta(`${global.themeemoji} TIKTOK: tiktok.com/@its.abbasi.brand1\n`))
-
-                const botNumber = sock.user.id.split(":")[0] + "@s.whatsapp.net"
-
-                await sock.sendMessage(botNumber, {
-                    text: `🤖 ${global.botname} Connected!\n⏰ ${new Date().toLocaleString()}`
-                })
             }
 
             if (connection === "close") {
@@ -128,33 +134,10 @@ async function startBot() {
                     startBot()
                 } else {
                     fs.rmSync("./session", { recursive: true, force: true })
-                    console.log(chalk.red("Session Expired. Scan QR Again."))
+                    console.log(chalk.red("Session Expired. Scan Again."))
                 }
             }
         })
-
-        // ================= MESSAGE HANDLER =================
-
-        sock.ev.on("messages.upsert", async (chatUpdate) => {
-            try {
-                const mek = chatUpdate.messages[0]
-                if (!mek.message) return
-
-                if (mek.key.remoteJid === "status@broadcast") {
-                    return await handleStatus(sock, chatUpdate)
-                }
-
-                await handleMessages(sock, chatUpdate, true)
-            } catch (err) {
-                console.log("Message Error:", err)
-            }
-        })
-
-        sock.ev.on("group-participants.update", async (update) => {
-            await handleGroupParticipantUpdate(sock, update)
-        })
-
-        return sock
 
     } catch (err) {
         console.log("Fatal Error:", err)
