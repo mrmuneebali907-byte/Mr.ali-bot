@@ -94,37 +94,4 @@
 ```bash
 git clone https://github.com/mrmuneebali907-byte/Mr.ali-bot.git
 cd Mr.ali-bot
-🔐 LOGIN METHODS
 
-<p align="center"><a href="https://your-bot-site.com/qr">
-<img src="https://img.shields.io/badge/SCAN-QR%20CODE-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/>
-</a><a href="https://your-bot-site.com/pair">
-<img src="https://img.shields.io/badge/GET-PAIR%20CODE-FF0000?style=for-the-badge&logo=whatsapp&logoColor=white"/>
-</a></p>---
-
-📱 CONNECT YOUR WHATSAPP
-
-🟢 Method 1 — QR Code
-
-1. Click SCAN QR CODE
-2. WhatsApp open karo
-3. Linked Devices par jao
-4. QR scan karo
-5. Bot connect ho jayega
-
----
-
-🔴 Method 2 — Pair Code
-
-1. Click GET PAIR CODE
-2. Apna WhatsApp number likho
-3. Pair code copy karo
-4. WhatsApp → Linked Devices
-5. Link with phone number select karo
-6. Code paste karo
-
----
-
-✅ Bot successfully connect ho jayega.
-
----
