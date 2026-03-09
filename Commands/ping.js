@@ -1,45 +1,72 @@
 const os = require('os');
+const fs = require('fs');
+const path = require('path');
 const settings = require('../settings.js');
 
 function formatTime(seconds) {
-    const days = Math.floor(seconds / (24 * 60 * 60));
-    seconds = seconds % (24 * 60 * 60);
-    const hours = Math.floor(seconds / (60 * 60));
-    seconds = seconds % (60 * 60);
-    const minutes = Math.floor(seconds / 60);
-    seconds = Math.floor(seconds % 60);
+    const d = Math.floor(seconds / (24 * 3600));
+    seconds %= (24 * 3600);
+    const h = Math.floor(seconds / 3600);
+    seconds %= 3600;
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
 
-    let time = '';
-    if (days > 0) time += `${days}d `;
-    if (hours > 0) time += `${hours}h `;
-    if (minutes > 0) time += `${minutes}m `;
-    if (seconds > 0 || time === '') time += `${seconds}s`;
-
-    return time.trim();
+    let t = '';
+    if (d) t += d + 'd ';
+    if (h) t += h + 'h ';
+    if (m) t += m + 'm ';
+    if (s || !t) t += s + 's';
+    return t.trim();
 }
 
 async function pingCommand(sock, chatId, message) {
     try {
+
         const start = Date.now();
-        await sock.sendMessage(chatId, { text: 'Pong!' }, { quoted: message });
-        const end = Date.now();
-        const ping = Math.round((end - start) / 2);
 
-        const uptimeInSeconds = process.uptime();
-        const uptimeFormatted = formatTime(uptimeInSeconds);
+        const ping = Date.now() - start;
 
-        const botInfo = `
-┏━━〔 🤖 𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 Bot 〕━━┓
-┃ 🚀 Ping     : ${ping} ms
-┃ ⏱️ Uptime   : ${uptimeFormatted}
+        const uptime = formatTime(process.uptime());
+
+        const ram = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
+
+        const platform = os.platform();
+
+        let speedBar = "▰▰▰▰▰▰▰▰▰▰";
+
+        if (ping > 300) speedBar = "▰▰▰▰▰▰▰▱▱▱";
+        if (ping > 500) speedBar = "▰▰▰▰▰▱▱▱▱▱";
+
+        const caption = `
+🏓 𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 𝐁𝐨𝐭 𝐀𝐜𝐭𝐢𝐯𝐞 𝐡𝐚𝐢! 🤖✨
+
+┏━━〔 🤖 𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 𝑩𝒐𝒕 〕━━┓
+┃ ⚡ Ping      : ${ping} ms
+┃ 📊 Speed    : ${speedBar}
+┃ ⏱ Uptime    : ${uptime}
+┃ 💾 RAM      : ${ram} MB
+┃ 🖥 Platform : ${platform}
 ┃ 🔖 Version  : v${settings.version}
-┗━━━━━━━━━━━━━━━━━━━┛`.trim();
+┗━━━━━━━━━━━━━━━━━━━┛
+`.trim();
 
-        await sock.sendMessage(chatId, { text: botInfo},{ quoted: message });
+        const imagePath = path.join(__dirname, '../assets/bot_image.jpg');
 
-    } catch (error) {
-        console.error('Error in ping command:', error);
-        await sock.sendMessage(chatId, { text: '❌ Failed to get bot status.' });
+        const imageBuffer = fs.readFileSync(imagePath);
+
+        await sock.sendMessage(chatId, {
+            image: imageBuffer,
+            caption: caption
+        }, { quoted: message });
+
+    } catch (err) {
+
+        console.log(err);
+
+        await sock.sendMessage(chatId, {
+            text: "❌ Ping check failed"
+        });
+
     }
 }
 
