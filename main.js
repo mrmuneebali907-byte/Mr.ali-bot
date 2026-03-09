@@ -1,4 +1,4 @@
-// 🧹 Fix for ENOSPC / temp overflow in hosted panels
+HackerFix for ENOSPC / temp overflow in hosted panels
 const fs = require('fs');
 const path = require('path');
 
@@ -147,17 +147,14 @@ const soraCommand = require('./commands/sora');
 global.packname = settings.packname;
 global.author = settings.author;
 global.channelLink = "https://whatsapp.com/channel/0029Va90zAnIHphOuO8Msp3A";
-global.ytch = "Mr Unique Hacker";
-
-// Add this near the top of main.js with other global configurations
+global.ytch = "𝑴𝒓.newsletterNamer the top of main.js with other global configurations
 const channelInfo = {
     contextInfo: {
         forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363161513685998@newsletter',
-            newsletterName: 'KnightBot MD',
-            serverMessageId: -1
+            newsletterJid: '1203631newsletterJidewsletter',
+            newsletterName: '𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊',        serverMessageId: -1
         }
     }
 };
