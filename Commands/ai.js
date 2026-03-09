@@ -1,105 +1,178 @@
-const axios = require('axios');
-const fetch = require('node-fetch');
+const axios = require("axios");
+const gTTS = require("gtts");
+const fs = require("fs");
 
 async function aiCommand(sock, chatId, message) {
-    try {
-        const text = message.message?.conversation || message.message?.extendedTextMessage?.text;
-        
-        if (!text) {
-            return await sock.sendMessage(chatId, { 
-                text: "Please provide a question after .gpt or .gemini\n\nExample: .gpt write a basic html code"
-            }, {
-                quoted: message
-            });
-        }
 
-        // Get the command and query
-        const parts = text.split(' ');
-        const command = parts[0].toLowerCase();
-        const query = parts.slice(1).join(' ').trim();
+try {
 
-        if (!query) {
-            return await sock.sendMessage(chatId, { 
-                text: "Please provide a question after .gpt or .gemini"
-            }, {quoted:message});
-        }
+const text =
+message.message?.conversation ||
+message.message?.extendedTextMessage?.text ||
+message.message?.imageMessage?.caption ||
+message.message?.videoMessage?.caption;
 
-        try {
-            // Show processing message
-            await sock.sendMessage(chatId, {
-                react: { text: '🤖', key: message.key }
-            });
+const voice = message.message?.audioMessage;
 
-            if (command === '.gpt') {
-                // Call the GPT API
-                const response = await axios.get(`https://zellapi.autos/ai/chatbot?text=${encodeURIComponent(query)}`);
-                
-                if (response.data && response.data.status && response.data.result) {
-                    const answer = response.data.result;
-                    await sock.sendMessage(chatId, {
-                        text: answer
-                    }, {
-                        quoted: message
-                    });
-                    
-                } else {
-                    throw new Error('Invalid response from API');
-                }
-            } else if (command === '.gemini') {
-                const apis = [
-                    `https://vapis.my.id/api/gemini?q=${encodeURIComponent(query)}`,
-                    `https://api.siputzx.my.id/api/ai/gemini-pro?content=${encodeURIComponent(query)}`,
-                    `https://api.ryzendesu.vip/api/ai/gemini?text=${encodeURIComponent(query)}`,
-                    `https://zellapi.autos/ai/chatbot?text=${encodeURIComponent(query)}`,
-                    `https://api.giftedtech.my.id/api/ai/geminiai?apikey=gifted&q=${encodeURIComponent(query)}`,
-                    `https://api.giftedtech.my.id/api/ai/geminiaipro?apikey=gifted&q=${encodeURIComponent(query)}`
-                ];
+let query = text;
 
-                for (const api of apis) {
-                    try {
-                        const response = await fetch(api);
-                        const data = await response.json();
+/* BOT CALL */
 
-                        if (data.message || data.data || data.answer || data.result) {
-                            const answer = data.message || data.data || data.answer || data.result;
-                            await sock.sendMessage(chatId, {
-                                text: answer
-                            }, {
-                                quoted: message
-                            });
-                            
-                            return;
-                        }
-                    } catch (e) {
-                        continue;
-                    }
-                }
-                throw new Error('All Gemini APIs failed');
-            }
-        } catch (error) {
-            console.error('API Error:', error);
-            await sock.sendMessage(chatId, {
-                text: "❌ Failed to get response. Please try again later.",
-                contextInfo: {
-                    mentionedJid: [message.key.participant || message.key.remoteJid],
-                    quotedMessage: message.message
-                }
-            }, {
-                quoted: message
-            });
-        }
-    } catch (error) {
-        console.error('AI Command Error:', error);
-        await sock.sendMessage(chatId, {
-            text: "❌ An error occurred. Please try again later.",
-            contextInfo: {
-                mentionedJid: [message.key.participant || message.key.remoteJid],
-                quotedMessage: message.message
-            }
-        }, {
-            quoted: message
-        });
-    }
+if (text && text.toLowerCase() === "bot") {
+
+await sock.sendMessage(chatId,{
+text:
+"👋 Assalam o Alaikum!\n\nMain 𝙈𝙧.𝙈𝙪𝙣𝙚𝙚𝙗 𝘼𝙡𝙞 𝘽𝙤𝙩 hoon 🤖\n\nMain aapki help ke liye active hoon.\nAap mujhse kuch bhi pooch sakte hain.\n\nExample:\n.gpt Pakistan kya hai\n.gemini HTML code likho\n\n👑 Owner: Mr.MuneebAli ✍️💞"
+},{quoted:message});
+
+return;
+
 }
 
-module.exports = aiCommand; 
+/* VOICE MESSAGE */
+
+if (voice) {
+
+await sock.sendMessage(chatId,{
+text:"🎤 Voice message mila.\nAbhi voice AI developing mode mein hai.\nFilhal text command use karein."
+},{quoted:message});
+
+return;
+
+}
+
+/* COMMAND CHECK */
+
+if (!text) return;
+
+const args = text.split(" ");
+const command = args[0].toLowerCase();
+
+if (command !== ".gpt" && command !== ".gemini") return;
+
+query = args.slice(1).join(" ");
+
+if (!query) {
+
+await sock.sendMessage(chatId,{
+text:"❗ Sawal likho.\nExample:\n.gpt HTML ka code likho"
+},{quoted:message});
+
+return;
+
+}
+
+/* REACTION */
+
+await sock.sendMessage(chatId,{
+react:{text:"🤖",key:message.key}
+});
+
+/* AI PROMPT */
+
+const prompt = `
+Tum ek intelligent WhatsApp AI ho.
+
+Bot Name: 𝙈𝙧.𝙈𝙪𝙣𝙚𝙚𝙗 𝘼𝙡𝙞 𝘽𝙤𝙩
+
+Owner: Mr.MuneebAli
+
+Rules:
+
+- Har sawal ka clear jawab do
+- Friendly aur funny tone rakho
+- Agar koi udaas ho to usko motivate karo
+- Agar koi owner ke bare me puche to bolo:
+  "Mera owner Mr.MuneebAli ✍️💞 hai"
+
+User question:
+${query}
+`;
+
+const apis = [
+
+"https://api.ryzendesu.vip/api/ai/gemini?text=${encodeURIComponent(prompt)}",
+
+"https://api.siputzx.my.id/api/ai/gemini-pro?content=${encodeURIComponent(prompt)}",
+
+"https://vapis.my.id/api/gemini?q=${encodeURIComponent(prompt)}"
+
+];
+
+let answer = null;
+
+for (let api of apis) {
+
+try {
+
+const response = await axios.get(api,{timeout:15000});
+
+const data = response.data;
+
+answer =
+data.answer ||
+data.result ||
+data.message ||
+data.data;
+
+if (answer) break;
+
+} catch(e) {
+
+continue;
+
+}
+
+}
+
+if (!answer) {
+
+answer = "❌ AI response nahi mila. Thodi der baad try karo.";
+
+}
+
+/* TEXT REPLY */
+
+await sock.sendMessage(chatId,{
+text:answer
+},{quoted:message});
+
+/* VOICE REPLY */
+
+try {
+
+const file = "./ai_voice.mp3";
+
+const tts = new gTTS(answer,"en");
+
+await new Promise((resolve)=>{
+tts.save(file,resolve);
+});
+
+await sock.sendMessage(chatId,{
+audio:fs.readFileSync(file),
+mimetype:"audio/mp4",
+ptt:true
+},{quoted:message});
+
+fs.unlinkSync(file);
+
+}catch(e){
+
+console.log("Voice error",e);
+
+}
+
+}catch(err){
+
+console.log("AI ERROR:",err);
+
+await sock.sendMessage(chatId,{
+text:"❌ Error aa gaya. Baad mein try karein."
+},{quoted:message});
+
+}
+
+}
+
+module.exports = aiCommand;
