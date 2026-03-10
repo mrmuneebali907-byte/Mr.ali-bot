@@ -1,4 +1,4 @@
-🤖 𝑴𝒓. 𝑴𝒖𝒏𝒆𝒆𝒃 𝑨𝒍𝒊 𝑩𝒐𝒕 — Ultra VIP Edition
+🤖 𝑴𝒓. 𝑴𝒖𝒏𝒆𝒆𝒃 𝑨𝒍𝒊 𝑩𝒐𝒕 🌹
 
 <p align="center">
 <img src="https://readme-typing-svg.demolab.com?font=Righteous&size=45&pause=1000&color=00FF99&center=true&vCenter=true&width=900&height=100&lines=Mr.+Muneeb+Ali+Bot;WhatsApp+Multi+Device+Bot;Ultra+VIP+Edition;Fast+%7C+Stable+%7C+Powerful" />
