@@ -2,7 +2,7 @@ const settings = {
   packname: 'Mr. Muneeb Ali Bot',
   author: '‎',
   botName: "Mr. Muneeb Ali  Bot",
-  botOwner: 'Professor', // Your name
+  botOwner: 'Professor', // Your name 𝙈𝙪𝙣𝙚𝙚𝙗 𝘼𝙗𝙗𝙖𝙖𝙞
   ownerNumber: '923329838699', //Set your number here without + symbol, just add country code & number without any space
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",
