@@ -1,1 +1,58 @@
+body{
+background:#0f172a;
+font-family:sans-serif;
+color:white;
+text-align:center;
+margin:0;
+}
 
+.login-container{
+margin-top:120px;
+}
+
+.login-container input{
+display:block;
+margin:10px auto;
+padding:12px;
+width:250px;
+border-radius:8px;
+border:none;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:8px;
+background:#22c55e;
+color:white;
+cursor:pointer;
+}
+
+.social{
+margin-top:20px;
+}
+
+.google{
+background:#ea4335;
+}
+
+.facebook{
+background:#1877f2;
+}
+
+.panel{
+padding:20px;
+}
+
+.card{
+background:#1e293b;
+margin:20px auto;
+padding:20px;
+border-radius:12px;
+width:300px;
+}
+
+.status{
+margin:10px;
+font-size:18px;
+}
