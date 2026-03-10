@@ -1,32 +1,55 @@
 const settings = require("../settings");
+const fs = require("fs");
+const os = require("os");
+
 async function aliveCommand(sock, chatId, message) {
     try {
-        const message1 = `*🤖 𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊 is Active!*\n\n` +
-                       `*Version:* ${settings.version}\n` +
-                       `*Status:* Online\n` +
-                       `*Mode:* Public\n\n` +
-                       `*🌟 Features:*\n` +
-                       `• Group Management\n` +
-                       `• Antilink Protection\n` +
-                       `• Fun Commands\n` +
-                       `• And more!\n\n` +
-                       `Type *.menu* for full command list`;
+
+        const start = new Date().getTime()
+
+        const used = process.memoryUsage().heapUsed / 1024 / 1024
+        const total = os.totalmem() / 1024 / 1024
+        const uptime = process.uptime()
+
+        const hours = Math.floor(uptime / 3600)
+        const minutes = Math.floor((uptime % 3600) / 60)
+        const seconds = Math.floor(uptime % 60)
+
+        const end = new Date().getTime()
+        const speed = end - start
+
+        const caption = `
+╭━━〔 🤖 *𝘼𝙇𝙄 𝘽𝙊𝙏* 🤖 〕━━⬣
+
+┃ 👑 *Owner:* Mr Muneeb Ali
+┃ 📦 *Version:* ${settings.version}
+┃ 🌐 *Mode:* Public
+┃ ⚡ *Speed:* ${speed} ms
+┃ ⏱ *Uptime:* ${hours}h ${minutes}m ${seconds}s
+┃ 💾 *RAM:* ${used.toFixed(2)} MB / ${total.toFixed(0)} MB
+
+╰━━━━━━━━━━━━⬣
+
+🌟 *FEATURES*
+
+➤ GROUP MANAGEMENT 👥
+➤ ANTILINK PROTECTION 🚫
+➤ FUN COMMANDS 🎮
+➤ DOWNLOAD COMMANDS 📥
+➤ AND MORE 🔥
+
+📜 *Type:* .menu
+
+💎 *Powered By:* 𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊✍️💞
+`;
 
         await sock.sendMessage(chatId, {
-            text: message1,
-            contextInfo: {
-                forwardingScore: 999,
-                isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: '0029VbCgDMZ6mYPNVd1AYp3K@newsletter',
-                    newsletterName: '𝑴𝒓.𝑴𝒖𝒏𝒆𝒆𝒃𝑨𝒍𝒊',
-                    serverMessageId: -1
-                }
-            }
+            image: fs.readFileSync("./assets/bot_image.jpg"),
+            caption: caption
         }, { quoted: message });
+
     } catch (error) {
-        console.error('Error in alive command:', error);
-        await sock.sendMessage(chatId, { text: 'Bot is alive and running!' }, { quoted: message });
+        console.log("Alive command error:", error);
     }
 }
 
